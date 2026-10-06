@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Configuración de Usuarios - Matrículas INO</title>
+    <link rel="stylesheet" th:href="@{/css/algo.css}">
+    <link rel="stylesheet" th:href="@{/css/configuracion.css}">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h1>Matrículas INO</h1>
+        <a th:href="@{/dashboard}">Inicio</a>
+        <a th:href="@{/registrar-estudiante}">Registrar Estudiante</a>
+        <a th:href="@{/gestion-matricula}">Gestión de Matrículas</a>
+        <a th:href="@{/pagos}">Pagos</a>
+        <a th:href="@{/reportes}">Reportes</a>
+        <a th:href="@{/configuracion}" class="activo">Configuración</a>
+    </aside>
+
+    <main class="contenido">
+        <div class="card">
+            <h2 style="color:#3b5fa4; margin-bottom: 16px;">Configuración de Usuarios</h2>
+
+            <div class="alerta-error" th:if="${error}" th:text="${error}"></div>
+
+            <form th:action="@{/configuracion/agregar}" method="post" class="form-inline">
+                <input type="text" name="username" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit" class="btn">Agregar Usuario</button>
+            </form>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Fecha ingreso</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${usuarios}">
+                    <td th:text="${u.idUsuario}"></td>
+                    <td th:text="${u.username}"></td>
+                    <td th:text="${u.ingreso}"></td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${u.estado == 'activo'} ? 'badge-activo' : 'badge-deshabilitado'"
+                              th:text="${u.estado}"></span>
+                    </td>
+                    <td>
+                        <form th:action="@{/configuracion/{id}/estado(id=${u.idUsuario})}" method="post" style="display:inline;">
+                            <input type="hidden" name="nuevoEstado"
+                                   th:value="${u.estado == 'activo'} ? 'Deshabilitado' : 'activo'">
+                            <button type="submit" class="btn"
+                                    th:text="${u.estado == 'activo'} ? 'Deshabilitar' : 'Habilitar'"></button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(usuarios)}">
+                    <td colspan="5">No hay usuarios registrados.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<script th:src="@{/js/configuracion.js}"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-grid.una-columna {
+    grid-template-columns: 1fr;
+}
+
+.form-grid input,
+.form-grid select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.form-grid label {
+    display: block;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.seccion-titulo {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    color: #3b5fa4;
+    font-size: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 6px;
+}
+
+.acciones-form {
+    grid-column: 1 / -1;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Estudiante - Matrículas INO</title>
+    <link rel="stylesheet" th:href="@{/css/algo.css}">
+    <link rel="stylesheet" th:href="@{/css/registrar-estudiante.css}">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h1>Matrículas INO</h1>
+        <a th:href="@{/dashboard}">Inicio</a>
+        <a th:href="@{/registrar-estudiante}" class="activo">Registrar Estudiante</a>
+        <a th:href="@{/gestion-matricula}">Gestión de Matrículas</a>
+        <a th:href="@{/pagos}">Pagos</a>
+        <a th:href="@{/reportes}">Reportes</a>
+        <a th:href="@{/configuracion}">Configuración</a>
+    </aside>
+
+    <main class="contenido">
+        <div class="card">
+            <h2 style="color:#3b5fa4; margin-bottom: 20px;">Registro de Estudiante</h2>
+
+            <div class="alerta-exito" th:if="${exito}" th:text="${exito}"></div>
+            <div class="alerta-error" th:if="${error}" th:text="${error}"></div>
+
+            <!--
+                OJO: es UN SOLO formulario que manda datos para DOS objetos
+                (Estudiante y Direccion) al mismo tiempo. Los campos del
+                estudiante usan th:field porque estan dentro de th:object.
+                Los campos de direccion usan "name" normal porque
+                pertenecen a otro objeto (Direccion) que el controlador
+                recibe aparte con @ModelAttribute Direccion.
+                Spring solo toma de cada input lo que le corresponde
+                a cada objeto, segun el nombre del campo.
+            -->
+            <form th:action="@{/registrar-estudiante}" th:object="${estudiante}" method="post" class="form-grid">
+
+                <div class="seccion-titulo">Datos de identificación</div>
+
+                <div>
+                    <label>NIE</label>
+                    <input type="text" th:field="*{nie}">
+                </div>
+                <div>
+                    <label>NUI</label>
+                    <input type="text" th:field="*{nui}">
+                </div>
+
+                <div>
+                    <label>DUI</label>
+                    <input type="text" th:field="*{dui}">
+                </div>
+                <div>
+                    <label>Primer Nombre</label>
+                    <input type="text" th:field="*{primerNombre}" required>
+                </div>
+
+                <div>
+                    <label>Segundo Nombre</label>
+                    <input type="text" th:field="*{segundoNombre}">
+                </div>
+                <div>
+                    <label>Tercer Nombre</label>
+                    <input type="text" th:field="*{tercerNombre}">
+                </div>
+
+                <div>
+                    <label>Primer Apellido</label>
+                    <input type="text" th:field="*{primerApellido}" required>
+                </div>
+                <div>
+                    <label>Segundo Apellido</label>
+                    <input type="text" th:field="*{segundoApellido}">
+                </div>
+
+                <div>
+                    <label>Tercer Apellido</label>
+                    <input type="text" th:field="*{tercerApellido}">
+                </div>
+                <div>
+                    <label>Nombre según partida de nacimiento</label>
+                    <input type="text" th:field="*{nombrePartida}">
+                </div>
+
+                <div>
+                    <label>Fecha de nacimiento</label>
+                    <input type="date" th:field="*{fechaNacimiento}" required>
+                </div>
+                <div>
+                    <label>Nacionalidad</label>
+                    <input type="text" th:field="*{nacionalidad}">
+                </div>
+
+                <div>
+                    <label>Departamento de nacimiento</label>
+                    <input type="text" th:field="*{departamentoNacimiento}">
+                </div>
+                <div>
+                    <label>Municipio de nacimiento</label>
+                    <input type="text" th:field="*{municipioNacimiento}">
+                </div>
+
+                <div>
+                    <label>Sexo</label>
+                    <select th:field="*{sexo}">
+                        <option value="">Seleccione sexo</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Estado familiar</label>
+                    <input type="text" th:field="*{estadoFamiliar}">
+                </div>
+
+                <div>
+                    <label>Etnia</label>
+                    <input type="text" th:field="*{etnia}">
+                </div>
+                <div>
+                    <label>¿Posee discapacidad?</label>
+                    <select th:field="*{discapacidad}">
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>¿Trastorno de aprendizaje?</label>
+                    <select th:field="*{trastornoAprendizaje}">
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                    </select>
+                </div>
+                <div>
+                    <label>¿Embarazada?</label>
+                    <select th:field="*{embarazada}" id="selectEmbarazada">
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Fecha probable de parto</label>
+                    <input type="date" th:field="*{fechaProbableParto}">
+                </div>
+                <div>
+                    <label>Estado de la persona</label>
+                    <select th:field="*{estadoPersona}">
+                        <option value="vive">Vive</option>
+                        <option value="fallecido">Fallecido</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Correo electrónico</label>
+                    <input type="email" th:field="*{correo}">
+                </div>
+                <div></div>
+
+                <div class="seccion-titulo">Dirección</div>
+
+                <div>
+                    <label>Zona</label>
+                    <input type="text" name="zona">
+                </div>
+                <div>
+                    <label>Departamento</label>
+                    <input type="text" name="departamento">
+                </div>
+
+                <div>
+                    <label>Municipio</label>
+                    <input type="text" name="municipio">
+                </div>
+                <div>
+                    <label>Cantón</label>
+                    <input type="text" name="canton">
+                </div>
+
+                <div>
+                    <label>Caserío</label>
+                    <input type="text" name="caserio">
+                </div>
+                <div>
+                    <label>Tipo de calle</label>
+                    <input type="text" name="tipoCalle">
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                    <label>Dirección detallada</label>
+                    <input type="text" name="direccionDetalle">
+                </div>
+
+                <div class="acciones-form">
+                    <a th:href="@{/dashboard}" class="btn" style="background:#9ca3af;">← Volver al Dashboard</a>
+                    <button type="submit" class="btn">Guardar Estudiante</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script th:src="@{/js/registrar-estudiante.js}"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Matrículas INO</title>
+    <link rel="stylesheet" th:href="@{/css/algo.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h1>Matrículas INO</h1>
+        <a th:href="@{/dashboard}" class="activo">Inicio</a>
+        <a th:href="@{/registrar-estudiante}">Registrar Estudiante</a>
+        <a th:href="@{/gestion-matricula}">Gestión de Matrículas</a>
+        <a th:href="@{/pagos}">Pagos</a>
+        <a th:href="@{/reportes}">Reportes</a>
+        <a th:href="@{/configuracion}">Configuración</a>
+    </aside>
+
+    <main class="contenido">
+        <div class="card" style="margin-bottom: 24px;">
+            <h2>Bienvenido al Sistema de Matrículas</h2>
+            <p>Panel principal del sistema de matrículas</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Estudiantes Registrados</h3>
+                <p th:text="${totalEstudiantes} + ' estudiantes'">0 estudiantes</p>
+            </div>
+            <div class="card">
+                <h3>Matrículas Activas</h3>
+                <p th:text="${totalMatriculasActivas} + ' matrículas'">0 matrículas</p>
+            </div>
+            <div class="card">
+                <h3>Pagos Pendientes</h3>
+                <p th:text="${pagosPendientes} + ' pagos'">0 pagos</p>
+            </div>
+            <div class="card">
+                <h3>Reportes Generados</h3>
+                <p th:text="${reportesGenerados} + ' reportes'">0 reportes</p>
+            </div>
+        </div>
+
+        <a th:href="@{/logout}" class="btn btn-danger" style="margin-top: 24px;">Cerrar sesión</a>
+    </main>
+</div>
+
+<script th:src="@{/js/dashboard.js}"></script>
+</body>
+</html>

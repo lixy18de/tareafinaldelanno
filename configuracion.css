@@ -1,0 +1,29 @@
+.form-inline {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.form-inline input {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+}
+
+.badge-activo {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badge-deshabilitado {
+    background-color: #fee2e2;
+    color: #991b1b;
+}

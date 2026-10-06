@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión - Matrículas INO</title>
+    <link rel="stylesheet" th:href="@{/css/algo.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body class="login-body">
+    <div class="login-box">
+        <h1>Matrículas INO</h1>
+
+        <div class="alerta-error" th:if="${error}" th:text="${error}"></div>
+
+        <form th:action="@{/login}" method="post">
+            <input type="text" name="username" placeholder="Usuario" required autofocus>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit" class="btn">Ingresar</button>
+        </form>
+    </div>
+
+    <script th:src="@{/js/login.js}"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Matrículas - Matrículas INO</title>
+    <link rel="stylesheet" th:href="@{/css/algo.css}">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h1>Matrículas INO</h1>
+        <a th:href="@{/dashboard}">Inicio</a>
+        <a th:href="@{/registrar-estudiante}">Registrar Estudiante</a>
+        <a th:href="@{/gestion-matricula}" class="activo">Gestión de Matrículas</a>
+        <a th:href="@{/pagos}">Pagos</a>
+        <a th:href="@{/reportes}">Reportes</a>
+        <a th:href="@{/configuracion}">Configuración</a>
+    </aside>
+
+    <main class="contenido">
+        <div class="card" style="margin-bottom: 24px;">
+            <h2 style="color:#3b5fa4; margin-bottom: 16px;">Nueva matrícula</h2>
+            <div class="alerta-error" th:if="${error}" th:text="${error}"></div>
+
+            <form th:action="@{/gestion-matricula}" method="post" class="form-inline">
+                <select name="idEstudiante" required>
+                    <option value="">Seleccione estudiante</option>
+                    <option th:each="est : ${estudiantes}"
+                            th:value="${est.idEstudiante}"
+                            th:text="${est.nombreCompleto}"></option>
+                </select>
+                <input type="number" name="anio" th:value="${anioActual}" placeholder="Año" required>
+                <input type="text" name="grado" placeholder="Grado (ej. Tercer Año)" required>
+                <input type="text" name="seccion" placeholder="Sección">
+                <input type="text" name="nivel" placeholder="Nivel">
+                <input type="text" name="sede" placeholder="Sede">
+                <input type="date" name="fechaIngreso">
+                <button type="submit" class="btn">Matricular</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 style="color:#3b5fa4; margin-bottom: 16px;">Gestión de Matrículas</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Estudiante</th>
+                    <th>Grado</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="m : ${matriculas}">
+                    <td th:text="${m.idHistorial}"></td>
+                    <td th:text="${m.nombreEstudiante}"></td>
+                    <td th:text="${m.grado}"></td>
+                    <td th:text="${m.estadoCalculado}"></td>
+                    <td>
+                        <form th:action="@{/gestion-matricula/eliminar/{id}(id=${m.idHistorial})}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(matriculas)}">
+                    <td colspan="5">No hay matrículas registradas todavía.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>
